@@ -1,29 +1,32 @@
 # RogueNFT
 
 ## About
-RogueNFT is a full-stack local system that simulates an environment where users can participate in a RogueLike fantasy story generation Ethereum Contract developed via HardHat. Backend and Frontend is developed via NodeJS and NextJS respectfully.
 
-## How to Use
-As of now, every users can mint as many RogueHeroes NFTs as they desire. Each minted RogueHeroes NFTs has a randomized choice of a hero and a level between 1 - 10. Upon receiving a minted token, users can set their tokens out to "adventure". Where during the process, the NFT's metadata will be used to randomly generate a story linked specially to the NFT and its current level. Each adventure will return a reasonable XP gained based on how complex the adventure was. 
+**RogueNFT** is a full-stack system simulating an environment where users can participate in a Roguelike fantasy story generation. The Ethereum smart contract is developed using **HardHat**, while the backend and frontend are developed using **Node.js** and **Next.js**, respectively.
 
-It should be noted, the higher the level of an NFT, the more words are allowed to describe the RogueHero's adventure. NFTs will also have a history of their past adventures, so it is possible for a single NFT to have a long adventure, progressively adventuring through a randomly generated fantasy world much like going through a novel.
+Users can mint RogueHeroes NFTs, send them on adventures, and merge them to create more powerful heroes. Each adventure generates a randomized fantasy story based on the NFT's metadata and level. The system mimics the progression of a Roguelike game, where NFTs gain experience points (XP) and grow in power over time.
 
-NFTs can also be merged together. However, they must be of the same Hero Class. When merged, users can create a new NFT, with a level combined by the two previously merged NFTs. Quickly skipping the process of slowly gaining XP to level up, however, users will burn their NFT tokens merged, and the newly minted NFT will have 0 XP, and 0 adventures. So its a risk to start anew!
+## Features
 
-## Instructions on Running the System In Order
-### smartContract
-1) npm install
-2) npx hardhat init
-3) npx hardhat compile
-4) npx hardhat node
-5) npx hardhat run scripts/deploy.js --network localhost
+- **Mint RogueHeroes NFTs**: Each token has a randomized hero class and a level (between 1-10).
+- **Adventures**: Send your NFTs on adventures, generating unique, randomly-created stories and earning XP based on the complexity of the adventure.
+- **Merge NFTs**: Combine two NFTs of the same hero class to create a new NFT with a combined level. The new NFT starts at level 1 and has 0 XP and no past adventures.
+- **Adventure History**: Keep track of an NFT's adventure history, creating a long and rich narrative as the hero progresses through different quests.
 
-### backEnd
-After running the steps of smartContract, please head to the /artifacts/contracts to find RogueContact.sol. In there, head to RogueNFT.json, and copy the array value of key "abi". Then, within backEnd, paste the copied array into abi.js
+## System Setup
 
-1) npm install
-2) npm run local
+### Prerequisites
 
-### frontEnd
-1) npm install
-2) npm run dev
+- **Node.js**: Ensure that you have Node.js installed.
+- **HardHat**: A development environment for Ethereum.
+- **MetaMask**: For interacting with the Ethereum network.
+- **Git**: For cloning repositories.
+
+### Running the System
+
+#### Smart Contract Setup
+
+1. Install dependencies:
+
+   ```bash
+   npm install
