@@ -22,13 +22,6 @@ app.use(express.json());
 app.use(cors(corsOptions));
 app.use(loggingMiddleware);
 
-// const provider = new ethers.JsonRpcProvider(process.env.BLOCKCHAIN_SERVER); // Connect to local blockchain
-// const privateKey = process.env.WALLET_PRIVATE_KEY; // Use one of the accounts from Hardhat
-// const wallet = new ethers.Wallet(privateKey, provider);
-
-// const contractAddress = process.env.DEPLOYED_CONTRACT_ADDR; // Copy from deployment step
-// const nftContract = new ethers.Contract(contractAddress, abi, wallet);
-
 app.use("/token", tokenRouter);
 app.use("/wallet", walletRouter);
 
@@ -49,4 +42,4 @@ app.use((err, req, res, next) => {
     }
 });
 
-app.listen(3000, () => console.log("Server running on http://localhost:3000"));
+app.listen(3000, () => console.log(`Server running on http://localhost:${process.env.BACKEND_PORT ?? "3000"}`));
