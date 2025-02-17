@@ -45,6 +45,7 @@ jspm_packages/
 # Hard Hat
 artifacts/
 cache/
+backend/abi.js
 
 # Snowpack dependency directory (https://snowpack.dev/)
 web_modules/

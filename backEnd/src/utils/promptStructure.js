@@ -7,7 +7,7 @@ export const promptStructure = {
     prompt: "Write a short story of a {hero} in roughly {wordCount} words, and how his adventure may look like. Give me a short, creative story that showcases genius, bravery, cunning, " +
     "romance. Describe the lands as fantastical environments. Assuming this was a scenario in a game, be reasonable much XP should they get, if the XP full bar was 100, and their " +
     "current XP is {currentXP} and their level is {level}. " +
-    'Please write your answer in JSON format. For example, you should only return `{"story": "your story", "xpGained": 10}`. No other symbols. ',
+    'Please write your answer in JSON format. For example, you should only return `{"story": "your story", "xpGained": 10}`. No other symbols, no json infront, no extra "`" ',
     previousStories:"You may continue from your previous stories: "
 
 }
