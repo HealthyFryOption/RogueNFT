@@ -3,6 +3,7 @@ import { NFTDetails } from "../lib/typeInterface";
 export default function RogueCards({
     nftDetails,
     canMerge,
+    adventuring,
     isSelected,
     toggleSelect,
     adventureSelect,
@@ -10,6 +11,7 @@ export default function RogueCards({
 }: {
     nftDetails: NFTDetails;
     canMerge: boolean;
+    adventuring: boolean;
     isSelected: boolean;
     toggleSelect: () => void;
     adventureSelect: () => void;
@@ -31,11 +33,12 @@ export default function RogueCards({
 
             <button 
                 className={`mt-4 p-2 border-4 rounded-xl ${
+                    adventuring ? "bg-gray-500" :
                     Number(nftDetails.cooldown) ? Math.floor(Date.now() / 1000) < Number(nftDetails.cooldown) ? 
                     "bg-gray-500" : "bg-[var(--secondForeGround)]" :  "bg-[var(--secondForeGround)]"}`
                 }
                 onClick={adventureSelect}
-                disabled={Number(nftDetails.cooldown) ? Math.floor(Date.now() / 1000) < Number(nftDetails.cooldown) : false}
+                disabled={adventuring ? true : Number(nftDetails.cooldown) ? Math.floor(Date.now() / 1000) < Number(nftDetails.cooldown) : false}
             >
                 Go Adventure
             </button>

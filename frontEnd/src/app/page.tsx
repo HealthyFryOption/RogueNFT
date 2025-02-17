@@ -18,6 +18,7 @@ export default function Home() {
 
   const [merging, setMerging] = useState(false);
   const [minting, setMinting] = useState(false);
+  const [adventuring, setAdventuring] = useState(false);
   
   const handleSignIn = async () => {
     if (!walletAddress || !privateKey) {
@@ -38,6 +39,16 @@ export default function Home() {
       setSingedIn(false);
     }    
   };
+
+  const refreshData = async () => {
+    const response = await fetch(`/api/wallet?walletAddress=${walletAddress}`);
+
+    if(response.ok){
+      const data= await response.json();
+
+      setNftData(data?.message?.nfts)
+    }
+  }
 
   const handleSelectMergeCards = (nft: NFTDetails) => {
     if(wantToMerge){
@@ -97,7 +108,8 @@ export default function Home() {
     setMerging(false)
   };
 
-  const startAdventure = async (nft: NFTDetails) => {   
+  const startAdventure = async (nft: NFTDetails) => {
+    setAdventuring(true)   
     const response = await fetch(`/api/adventure?tokenId=${nft.tokenId}`);
 
     if(response.ok){
@@ -118,6 +130,7 @@ export default function Home() {
         }
       }
     }
+    setAdventuring(false)   
   }
 
   const handleGetAdventure = async (nft: NFTDetails) => {
@@ -181,7 +194,15 @@ export default function Home() {
                 </p>
                 
               </div>
-              <div className="useFlexRowCenter mt-12 w-11/12 py-4 px-8 rounded-lg bg-[var(--mainColor)]">
+              <div className="useFlexRowFStart w-11/12">
+                  <button
+                    className="p-1 mt-2 mb-2 bg-[var(--contrastForeGround)] rounded-2xl"
+                    onClick={refreshData}
+                  >
+                    Refresh Data
+                  </button>
+              </div>
+              <div className="useFlexRowCenter w-11/12 py-4 px-8 rounded-lg bg-[var(--mainColor)]">
                 <div className="useFlexRowSEvenly md:useFlexRowFStart w-full">
                   <button 
                     className={`py-2 px-4 rounded-2xl mb-4 ${minting? "bg-gray-500" : "bg-[var(--secondForeGround)]" }`}
@@ -208,6 +229,7 @@ export default function Home() {
                           key={nft.tokenId} 
                           nftDetails={nft} 
                           canMerge={wantToMerge}
+                          adventuring={adventuring}
                           isSelected={selectedCards.some((card) => card.tokenId === nft.tokenId)}
                           toggleSelect={() => handleSelectMergeCards(nft)}
                           adventureSelect={()=> startAdventure(nft)} 
