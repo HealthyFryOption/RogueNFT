@@ -15,6 +15,7 @@ In RogueNFT, users can mint RogueHeroes NFTs, send them on adventures, and merge
 ## Notes
 - The higher the level of an NFT, the more detailed the generated stories will be.
 - Merging NFTs is a high-risk, high-reward action. Merged NFTs lose all XP and adventures, but you get to skip to higher levels faster.
+- After every adventure, the NFT will have a cooldown period of 5 minutes
 
 ## System Setup
 ### Prerequisites
