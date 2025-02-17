@@ -32,8 +32,6 @@ export default function Home() {
       const data= await response.json();
 
       setNftData(data?.message?.nfts)
-      console.log(data?.message?.nfts)
-      
       setSingedIn(true);
     }else{
       setSingedIn(false);
