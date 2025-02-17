@@ -1,0 +1,90 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Minecraftia';
+  src: url('/fonts/Minecraftia-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+:root {
+  --background: #2A004E;
+  --mainColor: #000B58;
+  --secondColor: #2E236C;
+  --foreGround: white;
+  --secondForeGround: #006A67;
+  --contrastForeGround: #AD49E1;
+}
+
+*{
+  z-index: 10;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: monospace, 'Courier New', Courier;
+}
+
+body {
+  font-size: clamp(1rem, 1vw + 1rem, 20px); /* Adjusts between 16px and 20px */
+}
+h1, a {
+  font-size: clamp(2rem, 4vw + 1rem, 3.5rem); /* Scales between 32px and 56px */
+}
+
+h2 {
+  font-size: clamp(1.5rem, 3vw + 1rem, 2.5rem); /* Scales between 24px and 40px */
+}
+
+h3{
+  font-size: clamp(1.25rem, 2vw + 0.5rem, 2.5rem); /* Scales between 20px and 24px */
+}
+
+p {
+  line-height: 1.6;
+  font-size: clamp(0.9rem, 1.5vw + 0.5rem, 1.25rem); /* Scales between 14.4px and 20px */
+}
+
+body {
+  width: 100vw;
+  max-width: 100%; /*prevent vertical scroll from adding new width*/
+
+  height: 100vh;
+  max-height: 100%;
+  background: var(--background);
+  color: var(--foreGround);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.useFlexCenter{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.useFlexRowCenter{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.useFlexRowFStart{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.useFlexRowSEvenly{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
