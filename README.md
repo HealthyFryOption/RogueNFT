@@ -63,3 +63,10 @@ In RogueNFT, users can mint RogueHeroes NFTs, send them on adventures, and merge
 2. Start the frontend development server:
    ```bash
    npm run dev
+
+
+### System Example
+![Alt text](./readMeImages/login.png?raw=true "Login")
+![Alt text](./readMeImages/image1.png?raw=true "Start")
+![Alt text](./readMeImages/merge.png?raw=true "Merging")
+![Alt text](./readMeImages/adventures.png?raw=true "Adventures")
