@@ -20,7 +20,7 @@ In RogueNFT, users can mint RogueHeroes NFTs, send them on adventures, and merge
 ## System Setup
 ### Prerequisites
 
-- **Node.js**: Ensure that you have Node.js installed.
+- **Node.js**: Ensure that you have Node.js of at least version 20 installed.
 - **HardHat**: A development environment for Ethereum.
 - **MetaMask**: For interacting with the Ethereum network.
 - **Git**: For cloning repositories.
