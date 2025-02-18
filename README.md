@@ -51,6 +51,10 @@ The goal of this RogueNFT, is to continuously sent your heros to adventures. The
    ```bash
    npx hardhat run scripts/deploy.js --network localhost
 
+- To test the contract:
+   ```bash
+   npx hardhat test
+
 #### Backend Setup
 1. After running the smart contract, go to the /artifacts/contracts directory.
 2. Find RogueContract.sol and navigate to RogueNFT.json. Copy the array value of the key "abi".
@@ -61,11 +65,6 @@ The goal of this RogueNFT, is to continuously sent your heros to adventures. The
 5. Run the backend locally:
    ```bash
    npm run local
-
-To test the contract before running, simple run:
-      ```bash
-      npx hardhat test
-
 
 #### Frontend Setup
 1. In the frontend directory, install dependencies:
