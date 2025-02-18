@@ -9,7 +9,7 @@ if (!process.env.BACKEND_API_URL) {
 }
 
 export const POST = errorHandlerWrapper(
-  "Server Failed To Merge Heroes",
+  "Server Failed To Let Hero Adventure. Please Try Again Later",
   async (request: NextRequest) => {
     const body = await request.json();
     const walletDetails = body.walletDetails; // User wallet address

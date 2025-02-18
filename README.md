@@ -6,6 +6,8 @@
 
 In RogueNFT, users can mint RogueHeroes NFTs, send them on adventures, and merge them to create more powerful heroes. Each adventure generates a randomized fantasy story based on the NFT's metadata. Furthermore, the system mimics the progression of a Roguelike game, where NFTs gain experience points (XP) and grow in power over time by going through adventures.
 
+The goal of this RogueNFT, is to continuously set your heros to adventures. The better and more complete the story generated, the more valuable it is. The rights of generated stories are owned by the NFT owner.
+
 ## Features
 - **Mint RogueHeroes NFTs**: Each token minted has a randomized hero class and a level (between 1-10).
 - **Adventures**: Send your NFTs on adventures, generating unique, randomly-created stories influenced by the NFT's metadata and earn XP based on the complexity of the adventure.
@@ -16,6 +18,12 @@ In RogueNFT, users can mint RogueHeroes NFTs, send them on adventures, and merge
 - The higher the level of an NFT, the more detailed the generated stories will be.
 - Merging NFTs is a high-risk, high-reward action. Merged NFTs lose all XP and adventures, but you get to skip to higher levels faster.
 - After every adventure, the NFT will have a cooldown period of 5 minutes
+
+## Future Improvements
+1. To include a generated image of the RogueHero during minting. The art should be in a 2D Pixel TileMap artstyle.
+2. To include better session management during user login
+3. To include the features of items, that users has a small chance of finding during adventures. Making it tradable between wallets.
+4. Items to give special advantage to RogueHeroes that uses it. Their artstyle will be re-generated to include the item.
 
 ## System Setup
 ### Prerequisites
@@ -54,7 +62,12 @@ In RogueNFT, users can mint RogueHeroes NFTs, send them on adventures, and merge
    ```bash
    npm run local
 
-### Frontend Setup
+To test the contract before running, simple run:
+      ```bash
+      npx hardhat test
+
+
+#### Frontend Setup
 1. In the frontend directory, install dependencies:
    ```bash
    npm install

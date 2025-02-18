@@ -4,26 +4,31 @@ pragma solidity ^0.8.19;
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 
 contract RogueNFT is ERC721Enumerable {
-    uint256 private latestTokenID;
-    mapping(address => uint256[]) public walletTokens;
+    uint256 private latestTokenID; // simple incremental tokenID for easy tracking
+    mapping(address => uint256[]) public walletTokens; // hashmap of wallet addr key to array of tokens, for easy balance tracking
+    
+    // === NFT System Configs ===
+    string[5] private availableClasses = ["warrior", "mage", "healer", "citizen", "merchant"];
+    uint256 constant COOLDOWN_PERIOD = 5 minutes;  // Cooldown duration of 5 minutes for adventures
+// === NFT System Configs ===
 
+    // === Token Metadatas ===
     mapping(uint256 => uint256) public rogueLevels;
     mapping(uint256 => string) public rogueClasses;
-    mapping(uint256 => uint256) public rogueXP;  // Changed from uint256[] to uint256
+    mapping(uint256 => uint256) public rogueXP; 
 
     mapping(uint256 => uint256) public adventureCooldown;  // Track the cooldown for each token
-    mapping(uint256 => string[]) public adventureStories;  // Array to store multiple adventure stories
-
-    string[5] private availableClasses = ["warrior", "mage", "healer", "citizen", "merchant"];
-
-    uint256 constant COOLDOWN_PERIOD = 5 minutes;  // Cooldown duration of 5 minutes
+    mapping(uint256 => string[]) public adventureStories;  // Store multiple adventure stories
+    // === Token Metadatas ===
 
     constructor() ERC721("RogueNFT", "RONFT") {}
 
+    // Events to propagate significant actions and transactions of this contract
     event Minted(uint256 tokenId);
     event Merged(uint256 tokenId);
     event AdventureStarted(uint256 tokenId, string story, uint256 xpGained);
 
+    // Mint new tokens (unlimited mints per wallet)
     function mint() public {
         uint256 tokenId = latestTokenID;
         uint256 nftLevel = randomRogueLevel(tokenId);
@@ -44,17 +49,19 @@ contract RogueNFT is ERC721Enumerable {
         latestTokenID++;
     }
 
+    // Get random level for newly minted token. Seeds are current time, address, and tokenID
     function randomRogueLevel(uint256 tokenId) private view returns (uint256) {
         return uint256(keccak256(abi.encodePacked(block.timestamp, msg.sender, tokenId))) % 10 + 1;
     }
 
+    // Get random class for newly minted token out of available classes. Seeds are current time, address, and tokenID
     function randomRogueClass(uint256 tokenId) private view returns (string memory) {
         uint256 classIndex = uint256(keccak256(abi.encodePacked(block.timestamp, msg.sender, tokenId))) % availableClasses.length;
         return availableClasses[classIndex];
     }
 
+    // Merge two NFTs together. Must be the same owner, and same class
     function merge(uint256 tokenId1, uint256 tokenId2) public {
-        // Check whether sender is owner of two merging tokens
         require(ownerOf(tokenId1) == msg.sender, "Not owner of token 1");
         require(ownerOf(tokenId2) == msg.sender, "Not owner of token 2");
 
@@ -68,7 +75,8 @@ contract RogueNFT is ERC721Enumerable {
         string memory newClass = rogueClasses[tokenId1];
         uint256 newTokenId = latestTokenID;
 
-        _safeMint(msg.sender, newTokenId); // Mint the token under sender address
+        // Mint the token under sender address
+        _safeMint(msg.sender, newTokenId); 
 
         // ===== NFT MetaData Creation =====
         rogueLevels[newTokenId] = newLevel;
@@ -82,17 +90,17 @@ contract RogueNFT is ERC721Enumerable {
         _burn(tokenId1);
         _burn(tokenId2);
 
-        // Remove tokenId from walletTokens mapping and its metadata
-        _removeTokenFromWallet(msg.sender, tokenId1);
-        _removeTokenFromWallet(msg.sender, tokenId2);
+        // After burning, remove tokenId from walletTokens mapping and its metadata
+        removeTokenFromWallet(msg.sender, tokenId1);
+        removeTokenFromWallet(msg.sender, tokenId2);
 
         latestTokenID++;
 
         emit Merged(newTokenId);
     }
 
-    // Helper function to remove a tokenId from the wallet's array
-    function _removeTokenFromWallet(address wallet, uint256 tokenId) private {
+    // To help remove token from wallet's array of tokens owned, and remove metadata
+    function removeTokenFromWallet(address wallet, uint256 tokenId) private {
         uint256 length = walletTokens[wallet].length;
         for (uint256 i = 0; i < length; i++) {
             if (walletTokens[wallet][i] == tokenId) {
@@ -110,7 +118,7 @@ contract RogueNFT is ERC721Enumerable {
         delete adventureStories[tokenId];
     }
 
-    // Get all tokens owned by a wallet
+    // Get all the NFTs owned by a wallet, as well as its metadata
     function getWalletNFTDetails(address wallet) external view returns (uint256[] memory, uint256[] memory, string[] memory, uint256[] memory, uint256[] memory) {
         uint256 balance = walletTokens[wallet].length;
 
@@ -132,11 +140,7 @@ contract RogueNFT is ERC721Enumerable {
         return (tokenIds, levels, classes, xps, cooldowns);
     }
 
-    function getNFTDetails(uint256 tokenId) public view returns (address owner, uint256 level, string memory nftClass) {
-        return (ownerOf(tokenId), rogueLevels[tokenId], rogueClasses[tokenId]);
-    }
-
-    // Function to start an adventure for a specific NFT token
+    // Allow NFTs to start their adventure, inserting a story and xp gained
     function startAdventure(uint256 tokenId, string memory story, uint256 xpGained) public {
         // Ensure that the sender owns the NFT
         require(ownerOf(tokenId) == msg.sender, "You do not own this token");
@@ -163,7 +167,7 @@ contract RogueNFT is ERC721Enumerable {
         emit AdventureStarted(tokenId, story, xpGained);
     }
 
-    // Function to get the adventure status for a specific NFT token
+    // Get all the past adventures of a given tokenID
     function getAdventureStatus(uint256 tokenId) public view returns (string[] memory stories, uint256 currentXP, uint256 cooldownEndTime) {
         stories = adventureStories[tokenId];  // All stories for the token
         currentXP = rogueXP[tokenId];  // Current XP for the token

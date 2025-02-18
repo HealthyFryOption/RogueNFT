@@ -14,7 +14,7 @@
   --mainColor: #000B58;
   --secondColor: #2E236C;
   --foreGround: white;
-  --secondForeGround: #006A67;
+  --secondForeGround: #0e908c;
   --contrastForeGround: #AD49E1;
 }
 
@@ -78,6 +78,14 @@ body {
   flex-wrap: wrap;
   flex-direction: row;
   justify-content: flex-start;
+  align-items: center;
+}
+
+.useFlexRowFEnd{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: flex-end;
   align-items: center;
 }
 

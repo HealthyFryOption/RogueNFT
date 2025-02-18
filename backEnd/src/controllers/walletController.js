@@ -19,8 +19,6 @@ export const getAllNFTDetails = wrapAsync(async (request, response, next) => {
     // Call smart contract function without signing
     const [tokenIds, levels, classes, xps, cooldowns] = await nftContract.getWalletNFTDetails(walletAddress);
 
-    console.log(cooldowns)
-
     // Format the data
     let nfts = tokenIds.map((id, index) => ({
         tokenId: id.toString(),
@@ -29,8 +27,6 @@ export const getAllNFTDetails = wrapAsync(async (request, response, next) => {
         xp: xps[index].toString(),
         cooldown: cooldowns ? cooldowns[index].toString() : 0,
     }));
-
-    console.log(nfts)
 
     response.json({nfts});
 });

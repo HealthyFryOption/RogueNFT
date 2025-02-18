@@ -9,16 +9,12 @@ dotenv.config();
 
 const gemini_api_key = process.env.GEMINI_API;
 const googleAI = new GoogleGenerativeAI(gemini_api_key);
-const geminiConfig = {
-    temperature: 0.9,
-    topP: 1,
-    topK: 1,
-    maxOutputTokens: 4096,
-};
+const gemConfig = promptStructure.geminiConfig
+
 const geminiModel = googleAI.getGenerativeModel({
     model: "gemini-pro",
-    geminiConfig,
-  });
+    gemConfig,
+});
 
 const provider = new ethers.JsonRpcProvider(process.env.BLOCKCHAIN_SERVER);
 const contractAddress = process.env.DEPLOYED_CONTRACT_ADDR;
@@ -36,7 +32,6 @@ export const tokenMint =  wrapAsync(async (request, response, next) => {
     const receipt = await tx.wait();
     const tokenId = parseInt(receipt.logs[1].data, 16); // Convert from hex
 
-    console.log(`NFT Minted | Token ID: ${tokenId}`);
     response.json({ success: true, transactionHash: tx.hash, tokenID: tokenId });
 });
 
@@ -95,14 +90,14 @@ export const startAdventure =  wrapAsync(async (request, response, next) => {
 
     if(stories){
         prompt += promptStructure.previousStories
-        for(let story in stories){
-            prompt += story
+        for (let i = 0; i < stories.length; i++) {
+            prompt += stories[i]
         }
     }
 
-    const result = await geminiModel.generateContent(promptStructure.botRole + prompt);
+    let completePrompt = promptStructure.botRole + prompt
+    const result = await geminiModel.generateContent(completePrompt);
     const geminiResponse = result.response.text();
-    console.log(geminiResponse)
 
     const storyJson = JSON.parse(geminiResponse)
 
@@ -114,7 +109,6 @@ export const startAdventure =  wrapAsync(async (request, response, next) => {
 
 export const getAdventures =  wrapAsync(async (request, response, next) => {
     const tokenId = request.body.tokenId;
-    console.log(tokenId)
 
     const nftContract = new ethers.Contract(contractAddress, abi, provider); // Use a read-only provider
     const [stories, currentXP, cooldownEndTime] = await nftContract.getAdventureStatus(tokenId);
@@ -124,8 +118,6 @@ export const getAdventures =  wrapAsync(async (request, response, next) => {
         xp:currentXP.toString(),
         cooldownEndTime:cooldownEndTime.toString(),
     }
-
-    console.log(stories, currentXP, cooldownEndTime)
 
     response.json({ success: true, ...details });
 });
