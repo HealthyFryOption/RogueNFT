@@ -24,6 +24,7 @@ The goal of RogueNFT, is to continuously send your heros to adventures. The bett
 2. To include better session management during user login
 3. To include the features of items, that users has a small chance of finding during adventures. Making it tradable between wallets.
 4. Items to give special advantage to RogueHeroes that uses it. Their artstyle will be re-generated to include the item.
+5. Consider and refactor relevant NFT metadata to be kept off-chain as to reduce gas cost
 
 ## System Setup
 ### Prerequisites
