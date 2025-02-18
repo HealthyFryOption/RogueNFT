@@ -6,7 +6,7 @@
 
 In RogueNFT, users can mint RogueHeroes NFTs, send them on adventures, and merge them to create more powerful heroes. Each adventure generates a randomized fantasy story based on the NFT's metadata. Furthermore, the system mimics the progression of a Roguelike game, where NFTs gain experience points (XP) and grow in power over time by going through adventures.
 
-The goal of this RogueNFT, is to continuously set your heros to adventures. The better and more complete the story generated, the more valuable it is. The rights of generated stories are owned by the NFT owner.
+The goal of this RogueNFT, is to continuously sent your heros to adventures. The better and more complete the stories the NFT has generated, the more valuable it is. The rights of generated stories are owned by the NFT owner.
 
 ## Features
 - **Mint RogueHeroes NFTs**: Each token minted has a randomized hero class and a level (between 1-10).
