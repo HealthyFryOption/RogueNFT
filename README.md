@@ -78,6 +78,7 @@ To test the contract before running, simple run:
 
 ### System Example
 
+![Alt text](./readMeImages/loginPage.png?raw=true "Page during login")
 ![Alt text](./readMeImages/image1.png?raw=true "Start")
 ![Alt text](./readMeImages/merge.png?raw=true "Merging")
-
+![Alt text](./readMeImages/heroAdventures.png?raw=true "Adventures of a Hero")
